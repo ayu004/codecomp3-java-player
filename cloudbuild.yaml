@@ -10,13 +10,13 @@ steps:
   - name: docker
     args: ["build", "-t", "gcr.io/$PROJECT_ID/codecomp-java", "."]
 
-# Step 7: pushing docker image to GCP Container Registry
+# Step 3: pushing docker image to GCP Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/codecomp-java"]
 
-# Step 8: Deploying this image using app.yaml present in **server/src/main/appengine** to GCP **APP ENGINE**
+# Step 4: Deploying this image using app.yaml present in **server/src/main/appengine** to GCP **APP ENGINE**
   - name: 'gcr.io/cloud-builders/gcloud'
-    dir: 'server/src/main/appengine'
+    dir: 'src/main/appengine'
     args: ['app', 'deploy', "--image-url=gcr.io/$PROJECT_ID/codecomp-java"]
     timeout: "30m0s"
 
