@@ -10,7 +10,7 @@ public class Controller {
 	
 	@GetMapping("/")
 	public void get() {
-		System.out.println("Hit at the root API / received");
+		System.out.println("Hit at API / received");
 	}
 	
 	@GetMapping("/hit")
