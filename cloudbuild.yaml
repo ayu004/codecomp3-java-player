@@ -1,0 +1,24 @@
+# below are the spteps executed by trigger
+steps:
+# java app deployment steps
+# Step 1: Running **mvn clean install** and skipping test cases
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    args: ["clean", "install", "-Dmaven.test.skip=true"]
+
+# Step 2: Creating docker image using docker file
+  - name: docker
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/codecomp-java", "."]
+
+# Step 7: pushing docker image to GCP Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/codecomp-java"]
+
+# Step 8: Deploying this image using app.yaml present in **server/src/main/appengine** to GCP **APP ENGINE**
+  - name: 'gcr.io/cloud-builders/gcloud'
+    dir: 'server/src/main/appengine'
+    args: ['app', 'deploy', "--image-url=gcr.io/$PROJECT_ID/codecomp-java"]
+    timeout: "30m0s"
+
+timeout: "100m0s"
+images: ["gcr.io/$PROJECT_ID/codecomp-java"]
