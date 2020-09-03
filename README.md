@@ -26,6 +26,7 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
 - In the next step, fill your details, like account type, Name, Address, credit card details, tax information, etc. If you have old Gmail account and all the information is already there it would take it and you might not have to fill all the details.
 - After filling all the details click on “Start my free trial“.
 - Google will setup your cloud account and in few seconds your Google Cloud Platform account will be ready to start deploying applications on it. It will look like below:
+
 ![GCP Home Screen](/img/welcome.PNG)
 
 2. Deploying the Java Application
@@ -53,11 +54,13 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
   - Before Selecting source, lets fill out the remaining form.
   - For Simplicity, Fill Branch as * (meaning to trigger build on push to any branch)
   - In Build Configuration, Select Cloud Build Configuration as File Type and keep all fields as it is
+
 ![Create Trigger](/img/createTrigger.PNG)  
   
   - Now come to Source field, click on Connect new repository which appears on a click and select GitHub as source.
   - GCP will ask you to login into your account to verify the user and for permission to access your repository
   - Select your forked github repository and click Connect Repository and then on Create push Trigger.
+
 ![Connect Repository](/img/connectRepo.PNG)    
   
   - Now everytime you push the code, this will trigger the build and deploy the app to App Engine, you can even trigger it manually by clicking Run Trigger in Triggers tab in Cloud Build.
@@ -65,6 +68,7 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
 - Checking Logs
   - Go to App Engine > Services and click on Tools in your default deployed service and select Logs which will open the logs of application.
   - You can click on Play button on top to start streaming live logs.
+
 ![Logs](/img/logs.PNG)  
   
 - It might take some time to service to get up and running or logs to load initially
