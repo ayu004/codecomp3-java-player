@@ -24,4 +24,4 @@ steps:
     dir: 'src/main/appengine'
     args: ['app', 'deploy', "--image-url=gcr.io/$PROJECT_ID/codecomp-java"]
     timeout: "30m0s"
-images: ["gcr.io/web-app/webapp3"]
+images: ["gcr.io/$PROJECT_ID/codecomp-java"]
