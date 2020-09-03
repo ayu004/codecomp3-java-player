@@ -54,16 +54,25 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
   - Fill out the details as per your choice. For simplicity keep Event value as Push to Branch.
   - Before Selecting source, lets fill out the remaining form.
   - For Simplicity, Fill Branch as * (meaning to trigger build on push to any branch)
-  - In Build Configuration, Select Cloud Build Configuration as File Type 
-  - Now come to Source, click on Connect new repository and select GitHub.
+  - In Build Configuration, Select Cloud Build Configuration as File Type and keep all fields as it is
+![Create Trigger](/img/createTrigger.PNG)  
+  
+  - Now come to Source field, click on Connect new repository which appears on a click and select GitHub as source.
   - GCP will ask you to login into your account to verify the user and for permission to access your repository
   - Select your forked github repository and click Connect Repository and then on Create push Trigger.
+![Connect Repository](/img/connectRepo.PNG)    
+  
   - Now everytime you push the code, this will trigger the build and deploy the app to App Engine, you can even trigger it manually by clicking Run Trigger in Triggers tab in Cloud Build.
   
-- In case the build fails with a permission error, visit IAM in Navaigation Menu and check for permission of service account ending with cloudbuild.gserviceaccount.com and add App Engine Admin role to this account.
-
 - Checking Logs
   - Go to App Engine > Services and click on Tools in your default deployed service and select Logs which will open the logs of application.
   - You can click on Play button on top to start streaming live logs.
+![Logs](/img/logs.PNG)  
+  
+- It might take some time to service to get up and running or logs to load initially
+
+- Happy Coding :smile:
+  
+
 
 
