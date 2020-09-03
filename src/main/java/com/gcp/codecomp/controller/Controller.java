@@ -11,7 +11,7 @@ public class Controller {
 	@GetMapping("/")
 	public String get() {
 		System.out.println("Hit at API / received");
-		return "Hello World";
+		return "Hello World of GCP platform";
 	}
 	
 	@GetMapping("/hit")
