@@ -22,5 +22,5 @@ steps:
 # Step 8: Deploying this image using app.yaml present in **server/src/main/appengine** to GCP **APP ENGINE**
   - name: 'gcr.io/cloud-builders/gcloud'
     dir: 'src/main/appengine'
-    args: ['app', 'deploy']
+    args: ['app', 'deploy',, "--image-url=gcr.io/$PROJECT_ID/codecomp-java"]
     timeout: "30m0s"
