@@ -7,7 +7,7 @@ steps:
     args: ["test"]
 
 # Step 5: Running **mvn clean install** and skipping test cases
-  - name: maven:3-jdk-8
+  - name: maven:3-jdk-11
     entrypoint: mvn
     args: ["clean", "install", "-Dmaven.test.skip=true"]
 
