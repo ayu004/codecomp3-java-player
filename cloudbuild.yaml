@@ -1,5 +1,7 @@
 # below are the steps executed by trigger
 steps:
+  -	name: 'gcr.io/cloud-builders/mvn'
+    args: ['package']
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ["app", "deploy","src/main/appengine/app.yaml"]
     timeout: "1600s"
