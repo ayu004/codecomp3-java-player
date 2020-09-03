@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 	
 	@GetMapping("/")
-	public void get() {
+	public String get() {
 		System.out.println("Hit at API / received");
+		return "Hello World";
 	}
 	
 	@GetMapping("/hit")
