@@ -1,7 +1,5 @@
 # CodeComp3-Java-Player
 
-# Codecomp is hosted entirely on GCP, so you do not need DB environment at any step.
-
 ## Prerequisites to play
 - Git
 - Editor of your choice(eclipse/intelliJ recommended)
@@ -71,8 +69,7 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
   
 - It might take some time to service to get up and running or logs to load initially
 
-- Happy Coding :smile:
-  
+## Happy Coding :smile:  
 
 
 
