@@ -39,7 +39,7 @@ public class Bot {
 
 				logger.info("Inside while loop");
 				GameStatus status = gameApi.gameStatus();
-				
+				logger.info("Got something from gamestatus api");
 				if(status == null)
 				{
 					logger.info("Game status is null");
