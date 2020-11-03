@@ -54,11 +54,14 @@ public class GameApi {
 		GameStatus status = null;
 			
 			try {
+			logger.info("trying to fetch gameStatus");
 			HttpURLConnection conn = getConnection("gamestatus");
 			if(conn == null){
+				logger.info("conn is null");
 				return status;
 			}
 			
+				logger.info("recevied connection");
 			int responseCode = conn.getResponseCode();
 			
 			if(responseCode < 200 || responseCode > 299) {
@@ -213,7 +216,7 @@ public class GameApi {
 			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		}
 		catch(Exception e) {
-			
+			logger.info("Exception in establishing trurst store");
 		}
 		try {
 			
@@ -232,6 +235,7 @@ public class GameApi {
 					}
 			}
 			else if(url.equals("gamestatus")) {
+				logger.info("About to call gamestatus API");
 				conn.setRequestMethod("GET");
 				conn.setRequestProperty("Accept", "application/json");
 			}
