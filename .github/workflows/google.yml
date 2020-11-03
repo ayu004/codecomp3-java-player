@@ -54,14 +54,14 @@ jobs:
         export_default_credentials: true 
          
     # Pull previously pushed stages(if any), Build the Docker image using cache and push it to registry
-    - uses: whoan/docker-build-with-cache-action@v5
-      with:
-        username: _json_key
-        password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        registry: gcr.io
-        image_name: spiderman        
+    #- uses: whoan/docker-build-with-cache-action@v5
+    #  with:
+    #    username: _json_key
+    #    password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+    #    registry: gcr.io
+    #    image_name: spiderman        
     
     # Deploy the Docker image to the GKE cluster
     - name: Deploy the application to Google App Engine
       run: |-
-        gcloud app deploy --quiet --version=java --project=$GCP_PROJECT --image-url=gcr.io/$GCP_PROJECT/spiderman
+        gcloud app deploy --quiet --version=java --project=$GCP_PROJECT
