@@ -18,4 +18,4 @@ steps:
   args: ['app', 'deploy', "--image-url=gcr.io/$PROJECT_ID/bot-spiderman"]
   timeout: '1600s'
 images:
-- gcr.io/$PROJECT_ID/gcp-appengine-demo
+- gcr.io/$PROJECT_ID/bot-spiderman
