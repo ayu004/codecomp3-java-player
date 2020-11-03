@@ -37,10 +37,12 @@ public class Bot {
 			logger.info("Playing with team name -->: "+myTeamName+ " Password is --> "+myPassword);
 			while(true) {
 
+				logger.info("Inside while loop");
 				GameStatus status = gameApi.gameStatus();
 				
 				if(status == null)
 				{
+					logger.info("Game status is null");
 					continue;
 				}
 				
@@ -54,6 +56,7 @@ public class Bot {
 						status.getGameParameters().getRoundId() == null || status.getGameParameters().getRoundNumber() == null || 
 						status.getGameParameters().getStatus() == null || status.getGameParameters().getSecretLength() == null)
 				{	
+					logger.info("Null parameters in game status");
 					continue;
 				}
 
