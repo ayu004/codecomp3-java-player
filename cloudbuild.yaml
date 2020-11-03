@@ -18,7 +18,7 @@ steps:
 #  args: ['run', 'deploy', 'spiderman', '--image', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
 #Deploy image
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['app', 'deploy','--image', 'gcr.io/$PROJECT_ID/ironman:$COMMIT_SHA']
+  args: ['app', 'deploy', "--image-url=gcr.io/$PROJECT_ID/ironman:$COMMIT_SHA"]
   timeout: '1600s'
 images:
 - gcr.io/$PROJECT_ID/ironman:$COMMIT_SHA
