@@ -1,2 +1,4 @@
 #This is only required value
 runtime: java11
+env_variables:
+  - PORT: 8081
