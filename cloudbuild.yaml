@@ -7,7 +7,14 @@ steps:
 - name: maven:3-jdk-11
   entrypoint: mvn
   args: ["clean", "install", "-Dmaven.test.skip=true"]
-#Deploy image
+#Build image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/ironman', '.']
+#Push image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/ironman']
+# Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['app', 'deploy']
-  timeout: '1600s'
+  args: ['run', 'deploy', 'myservice', '--image', 'gcr.io/$PROJECT_ID/ironman', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+images:
+- gcr.io/$PROJECT_ID/ironman
