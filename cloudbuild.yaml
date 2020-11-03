@@ -8,13 +8,17 @@ steps:
   entrypoint: mvn
   args: ["clean", "install", "-Dmaven.test.skip=true"]
 #Build image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA', '.']
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['build', '-t', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA', '.']
 #Push image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA']
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA']
 # Deploy container image to Cloud Run
+#- name: 'gcr.io/cloud-builders/gcloud'
+#  args: ['run', 'deploy', 'spiderman', '--image', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+#Deploy image
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['run', 'deploy', 'spiderman', '--image', 'gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
-images:
-- gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA
+  args: ['app', 'deploy']
+  timeout: '1600s'
+#images:
+#- gcr.io/$PROJECT_ID/spiderman:$COMMIT_SHA
