@@ -71,10 +71,11 @@ jobs:
 
     # Create App Engine in your GCP Project
     - name: Create App Engine
+      continue-on-error: true #otherwise will give error on pipeline re-run since app engine creation process is irreversible
       run: gcloud app create --region=europe-west
 
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy the application to Google App Engine
       run: |-
-        gcloud app deploy --version=bot-1 --project=$GCP_PROJECT --image-url=eu.gcr.io/$GCP_PROJECT/gcodecomp-bot --appyaml=app.yaml
+        gcloud app deploy --version=bot-1 --project=$GCP_PROJECT --image-url=eu.gcr.io/$GCP_PROJECT/codecomp-bot --appyaml=app.yaml
