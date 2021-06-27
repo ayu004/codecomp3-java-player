@@ -54,13 +54,7 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
 
 ![Service Account Details](/img/service-account-details-modified.jpg)
   
-* Under **Service Account Permissions** , add following roles one by one and click on **Continue**:
-  * Cloud Run Admin
-  * Cloud SQL Admin
-  * Container Registry Service Agent
-  * Service Account User
-  * Storage Admin
-  * Service Usage Admin
+* Under **Service Account Permissions** , add the owner role as shown below and click on **Continue**:
 
   ![Service Account Permissions](/img/service-account-permissions-modified.jpg)
   

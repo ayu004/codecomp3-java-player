@@ -5,7 +5,7 @@
 # 1. Ensure that your repository contains the necessary configuration for your Google App Engine, including app.yaml, docker file to build image.
 # 2. Set up secrets in your github repository: PROJECT_ID with the id of the project and GOOGLE_APPLICATION_CREDENTIALS with the JSON service account key created for your service account in your google cloud project.
 
-name: Build and Deploy to GAE
+name: Build and Deploy to Google Cloud App Engine
 
 on:
   push:
