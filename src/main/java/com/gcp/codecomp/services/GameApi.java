@@ -234,7 +234,6 @@ public class GameApi {
 					}
 			}
 			else if(url.equals("gamestatus")) {
-				logger.info("About to call gamestatus API");
 				conn.setRequestMethod("GET");
 				conn.setRequestProperty("Accept", "application/json");
 			}

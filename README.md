@@ -102,15 +102,15 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
 
 ![Pipeline-Run](/img/pipeline-run.JPG)
   
-* Once workflow is successful, head towards google cloud console and search app engine on search bar, you can see the bot deployed there.
+* Once workflow is successful, head towards google cloud console and search app engine on search bar, you can see the bot deployed there as default service.
 
-![Cloud Run Services](/img/cloud-run-services.JPG)
+![App Engine Services](/img/app-engine-services.JPG)
   
 ## Checking Logs
   - Go to App Engine > Services and click on Tools in your deployed service and select Logs which will open the logs of application.
   - You can click on Play button on top to start streaming live logs.
 
-![Logs](/img/logs.PNG)  
+![Logs](/img/logs.JPG)  
   
 - It might take some time to service to get up and running or logs to load initially
 
