@@ -54,31 +54,30 @@ public class GameApi {
 		GameStatus status = null;
 			
 			try {
-			logger.info("trying to fetch gameStatus");
-			HttpURLConnection conn = getConnection("gamestatus");
-			if(conn == null){
-				logger.info("conn is null");
-				return status;
-			}
+				
+				HttpURLConnection conn = getConnection("gamestatus");
+				
+				if(conn == null){
+					logger.info("getting Gamestatus API connection as null");
+					return status;
+				}
 			
-				logger.info("recevied connection");
-			int responseCode = conn.getResponseCode();
+				int responseCode = conn.getResponseCode();
 			
-			if(responseCode < 200 || responseCode > 299) {
-				System.out.print("Get game status failed : error code "+responseCode);
-				return status;
-			}
+				if(responseCode < 200 || responseCode > 299) {
+					System.out.print("Get game status failed : error code "+responseCode);
+					return status;
+				}
 			
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			
-			String output;
+				String output;
 
-			output = br.readLine();
+				output = br.readLine();
 			
+				ObjectMapper objectMapper = new ObjectMapper();
 			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			status = objectMapper.readValue(output, GameStatus.class);
+				status = objectMapper.readValue(output, GameStatus.class);
 			}
 			catch (Exception e) {
 				
@@ -96,7 +95,7 @@ public class GameApi {
 			
 			if(conn == null)
 			{
-				logger.info("conn = null | Not Able to Join");
+				logger.info("Join API Connection received as null | Not Able to Join");
 				logger.info("-----------------------------------");
 				return;
 			}
@@ -111,7 +110,7 @@ public class GameApi {
 				inputStream = conn.getErrorStream();
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-			
+
 			String currentLine = in.readLine();
 			
 			JSONParser responseJsonParser = new JSONParser();
@@ -128,13 +127,13 @@ public class GameApi {
 					if(!hasDataKey || joinApiResponse.get("data") == null)
 					{
 						logger.info("Not able to Join. Try Again Later");
-						logger.info("-----------------------------------");
+						logger.info("---------------------------------------------------");
 						return;
 					}
 					else 
 					{
 						logger.info(joinApiResponse.get("data"));
-						logger.info("-----------------------------------");
+						logger.info("---------------------------------------------------");
 						return;
 					}
 				}
@@ -142,7 +141,7 @@ public class GameApi {
 				{
 					String errMessage = ((HashMap) joinApiResponse.get("err")).get("message") + ", "+ ((HashMap) joinApiResponse.get("err")).get("description");
 					logger.info(errMessage);
-					logger.info("-----------------------------------");
+					logger.info("---------------------------------------------------");
 				}
 				
 			}

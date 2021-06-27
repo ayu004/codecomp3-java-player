@@ -34,7 +34,7 @@ public class MySmartAlgo {
 		
 		Map<String, Participant> participantsMap = gameParameters.getParticipants().stream().collect(Collectors.toMap(Participant::getTeamId, Participant -> Participant));;
 		
-		//Remove myself, I don't want to guess my secret and eventually lose my lifelines. Do I? :)
+		//Remove myself, I don't want to guess my secret and lose one chance(out of 5) to score points . Do I? :)
 		if(participantsMap.containsKey(env.getProperty("team")))
 			participantsMap.remove(env.getProperty("team"));
 		

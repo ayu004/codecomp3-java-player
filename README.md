@@ -8,7 +8,7 @@
 We have written all boilerplate code to get you started within 5 minutes. You kust need to make 'MySmartAlgo' smarter. You can improve your algo by playing with test server.
 - Clone this repo using : git clone <Link of this repo>
 - cd codecomp3-java-player
-- change 'myTeam' and 'pass' in application.properties inside src/main/resources
+- change 'team' and 'password' in application.properties inside src/main/resources
 - Using editor of your choice, Run as Java Application or as maven project using run goal as : clean spring-boot:run and start playing.
 - see url for live score : <leaderboard URL Here>
 
@@ -19,54 +19,101 @@ We have written all boilerplate code to get you started within 5 minutes. You ku
 
 ## Step-by-step guide
 
-1. Setting up Google Cloud Project
-  * Skip this section if you have google cloud account set up already
-- Go to [Google Cloud](https://cloud.google.com/) and click on ‘Get Started for FREE‘.
-- Login using personal gmail account and choose your country and accept terms and conditions and click Continue
-- In the next step, fill your details, like account type, Name, Address, credit card details, tax information, etc. If you have old Gmail account and all the information is already there it would take it and you might not have to fill all the details.
-- After filling all the details click on “Start my free trial“.
-- Google will setup your cloud account and in few seconds your Google Cloud Platform account will be ready to start deploying applications on it. It will look like below:
+## Setting up a GCP Account
 
-![GCP Home Screen](/img/welcome.PNG)
+**You can skip this step if you already have a GCP Project
 
-2. Deploying the Java Application
-- Enable Cloud Console APIs
-  - Go to Navigation Menu(Top left Corner) > API & Services > Dashboard
-  - Click on Enable APIS and SERVICES button.
-  - Search App Engine Admin in search box.
-  - Click on App Engine Admin and click Enable in next step
-  - Wait till it gets enabled successfully.
-  - Similarly enable Cloud Build API.
- 
-- Create an App Engine app
-  - Go to Navigation Menu(Top left Corner) > App Engine > Dashboard
-  - Select Region according to your location.
-  - Click Create App and wait till it successfully creates an App Engine app.
- 
-- Grant App Engine access to the Cloud Build service account to automate deployments
-  - Go to Navigation Menu(Top left Corner) > Cloud Build > Settings
-  - Enable App Engine Admin role
-  
-- Create a build Trigger
-  - Go to Navigation Menu(Top left Corner) > Cloud Build > Triggers
-  - Click Create trigger
-  - Fill out the details as per your choice. For simplicity keep Event value as Push to Branch.
-  - Before Selecting source, lets fill out the remaining form.
-  - For Simplicity, Fill Branch as * (meaning to trigger build on push to any branch)
-  - In Build Configuration, Select Cloud Build Configuration as File Type and keep all fields as it is
+* Go to [Google Cloud](https://cloud.google.com/) and click on **Get Started for FREE**.
+* Login using your gmail account, choose your country, accept terms and conditions and click **Continue**.
+* In the next step, fill your details, like account type, Name, Address, credit card details, tax information, etc. If you have old Gmail account and all the information is already there it would take it and you might not have to fill all the details.
+* After filling all the details click on **Start my free trial**.
+* Google will setup your cloud account and in few seconds your Google Cloud Platform account will be ready to start deploying applications on it. It will look like below:
 
-![Create Trigger](/img/createTrigger.PNG)  
-  
-  - Now come to Source field, click on Connect new repository which appears on a click and select GitHub as source.
-  - GCP will ask you to login into your account to verify the user and for permission to access your repository
-  - Select your forked github repository and click Connect Repository and then on Create push Trigger.
+![Project Setup](/img/gcp-project-setups-modified.jpg)
 
-![Connect Repository](/img/connectRepo.PNG)    
+## Creating new GCP Project
+
+* Go to [Manage Resources Page](https://console.cloud.google.com/cloud-resource-manager?_ga=2.16905723.313995043.1600681234-1805943322.1596519952) and click on **New Project**
+* Fill in the Project Name and keep location as it is. You can also **Edit** Project ID according to availability. Once done click on **Create** and your New GCP Project will be created.
+
+![New Project](/img/new-project-description-fied.jpg)
+
+* After you have created your project. Go to Billing and click on **Link Billing Account**
+
+![Link Billing](/img/billing-account-fied.jpg)
+
+* Select Billing Account from dropdown menu and click on **Set Account**
+
+![Set Billing Account](/img/set-billing-account-modified.jpg)
+
+## Creating a Service Account(SA) and SA Key in GCP Project
+
+* Go to **Navigation Menu(Top left Corner) > IAM & Admin > Service Accounts**
+  * Click on **Create Service Account**
+  * Under **Service Account Details** provide service account **name** and **description** of your choice and click on **Create**
+
+![Service Account Details](/img/service-account-details-modified.jpg)
   
-  - Now everytime you push the code, this will trigger the build and deploy the app to App Engine, you can even trigger it manually by clicking Run Trigger in Triggers tab in Cloud Build.
+* Under **Service Account Permissions** , add following roles one by one and click on **Continue**:
+  * Cloud Run Admin
+  * Cloud SQL Admin
+  * Container Registry Service Agent
+  * Service Account User
+  * Storage Admin
+  * Service Usage Admin
+
+  ![Service Account Permissions](/img/service-account-permissions-modified.jpg)
   
-- Checking Logs
-  - Go to App Engine > Services and click on Tools in your default deployed service and select Logs which will open the logs of application.
+  * Keep **User Access Section** unchanged and click on **Done**
+  * On Service Account Page click on Actions hamburger menu of Service Account you just created and Click on  Manage Keys
+  
+![Service Account Manage Key](/img/manage-key.JPG)
+
+  * Click on **Add Key** and then **Create new key**
+  
+![Service Account Create Key](/img/create-new-key.JPG)  
+
+* Select **JSON** option and Click on **Create**. A JSON file will get downloaded on your local system, save it we will need it later*
+
+![Service Account JSON](/img/create-json-key.JPG)
+
+## Creating Github Secrets
+
+* Fork this repository
+* Go to **Settings > Secrets** in your forked repository.
+* Click on **New Repository Secret** and add Name as **PROJECT_ID** and value as Project ID of your GCP Project and click on Add Secret
+
+![New Secret](/img/secret-project.JPG)
+
+* Again click on New Secret and add Name as **GOOGLE_APPLICATION_CREDENTIALS** and value as contents of json file that you downloaded and click on Add Secret
+  
+* KEEP IN MIND, not to change Secret Names otherwise you will need to alter workflow in .github/workflows directory
+
+## Deploying the bot
+
+* The workflow to deploy the application is already set in .github/workflows/cloud.yaml file in your forked repo. The workflow can be triggered manually by visiting actions tab in your forked github repo or automatically whenever some code is pushed.
+* Firstly, Visit the Actions tab in your forked repo and Click **I understand my workflows, go ahead & enable them**
+
+![Enable-workflows](/img/understand-workflows.JPG)
+
+* Open the workflow by clickng on workflow name - **Build and Deploy to GAE** in this case
+
+![Open-workflow](/img/open-workflow.JPG)
+
+* Trigger the workflow manually by visiting actions tab in your github repo and let Github Actions do the magic.
+
+![Run-Workflow](/img/run-workflow.JPG)
+  
+* In the Actions tab in your forked repo and open the latest the workflow run and see the progress. You will see something like this when pipeline completes.
+
+![Pipeline-Run](/img/pipeline-run.JPG)
+  
+* Once workflow is successful, head towards google cloud console and search app engine on search bar, you can see the bot deployed there.
+
+![Cloud Run Services](/img/cloud-run-services.JPG)
+  
+## Checking Logs
+  - Go to App Engine > Services and click on Tools in your deployed service and select Logs which will open the logs of application.
   - You can click on Play button on top to start streaming live logs.
 
 ![Logs](/img/logs.PNG)  

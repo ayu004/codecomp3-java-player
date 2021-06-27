@@ -33,16 +33,27 @@ public class Bot {
 			String myPassword = env.getProperty("password");
 			
 			//Add Checks for empty team and password
+			if(myTeamName == null || myPassword == null)
+			{
+				logger.info("Received null team name or password, please update team details in application.properties");
+				return;
+			}
+			
+			if(myTeamName.trim().isEmpty() || myPassword.trim().isEmpty())
+			{
+				logger.info("Received empty team name or password, please update team details in application.properties");
+				return;
+			}
 			
 			logger.info("Playing with team name -->: "+myTeamName+ " Password is --> "+myPassword);
+			
 			while(true) {
 
-				logger.info("Inside while loop");
 				GameStatus status = gameApi.gameStatus();
-				logger.info("Got something from gamestatus api");
+				
 				if(status == null)
 				{
-					logger.info("Game status is null");
+					logger.info("Game status recevied as null. Please try again later");
 					continue;
 				}
 				
@@ -56,12 +67,12 @@ public class Bot {
 						status.getGameParameters().getRoundId() == null || status.getGameParameters().getRoundNumber() == null || 
 						status.getGameParameters().getStatus() == null || status.getGameParameters().getSecretLength() == null)
 				{	
-					logger.info("Null parameters in game status");
+					logger.info("Null parameters in game status. Please try again later");
 					continue;
 				}
 
-				logger.info("-----------------------------------");
-				logger.info(status.getRequestId());
+				logger.info("---------------------------------------------------");
+				logger.info("Request Id : "+status.getRequestId());
 				
 				boolean  haveIJoinedRound = status.getGameParameters().getParticipants().stream().anyMatch(member -> member.getTeamId().equals(myTeamName));
 				
@@ -74,6 +85,7 @@ public class Bot {
 					}
 					else {
 						logger.info("You have joined the round. Wait for Running Phase to start");
+						logger.info("---------------------------------------------------");
 					}
 				}
 				else if(state != null && state.equals("Running"))
@@ -82,23 +94,26 @@ public class Bot {
 					if(haveIJoinedRound) 
 					{
 						
+						// I am dumb. Please make me smart,I know you are very good at this :)
 						GuessRequest guesses = msl.nextGuess(status);
 						String response = gameApi.guess(guesses);
 						
-						logger.info(response);	//Store result in a map and use it for next guess
-						logger.info("-----------------------------------");
+						
+						//Hint: Store result in a map and use it for next guess wisely. This will pay dividends :)
+						logger.info(response);	
+						logger.info("---------------------------------------------------");
 					}
 					else {
 						
 						logger.info("Team is not joined in this round, Please wait for Joining Phase");
-						logger.info("-----------------------------------");
+						logger.info("---------------------------------------------------");
 						
 					}
 					
 				}
 				else {
 					logger.info("Please wait for Joining Phase");
-					logger.info("-----------------------------------");
+					logger.info("---------------------------------------------------");
 				}
 				Thread.sleep(5*1000);
 				

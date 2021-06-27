@@ -53,15 +53,28 @@ jobs:
         project_id: ${{ secrets.PROJECT_ID }}
         export_default_credentials: true 
 
+    # Enable Required APIs on project
+    - name: Enable APIs
+      run: gcloud services enable serviceusage.googleapis.com  logging.googleapis.com cloudresourcemanager.googleapis.com containerregistry.googleapis.com admin.googleapis.com appengine.googleapis.com storage-api.googleapis.com
+
+    # Register gcloud as Docker Credential Helper
+    - name: Configure Docker and Install Beta
+      run:  gcloud auth configure-docker --quiet
+
     # Pull previously pushed stages(if any), Build the Docker image using cache and push it to registry
-    #- uses: whoan/docker-build-with-cache-action@v5
-    #  with:
-    #    username: _json_key
-    #    password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-    #    registry: gcr.io
-    #    image_name: spiderman        
+    - uses: whoan/docker-build-with-cache-action@v5
+      with:
+        username: _json_key
+        password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        registry: eu.gcr.io
+        image_name: codecomp-bot
+
+    # Create App Engine in your GCP Project
+    - name: Create App Engine
+      run: gcloud app create --region=europe-west
+
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy the application to Google App Engine
       run: |-
-        gcloud app deploy --quiet --version=java --project=$GCP_PROJECT
+        gcloud app deploy --version=bot-1 --project=$GCP_PROJECT --image-url=eu.gcr.io/$GCP_PROJECT/gcodecomp-bot --appyaml=app.yaml
